@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { Dialog, Menu } from '@headlessui/react';
 
 function App() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Menu>
+        <Menu.Button>Open dropdown</Menu.Button>
+        <Menu.Items unmount={false}>
+          <Menu.Item as="div">
+            <button type="button" onClick={() => setOpen(true)}>Open dialog</button>
+            <Dialog
+              open={open}
+              onClose={() => setOpen(false)}
+              // onKeyDown={(event) => event.stopPropagation()}
+            >
+              <Dialog.Panel>
+                <form action="#">
+                  <label htmlFor="input">Broken input</label>
+                  <input
+                    id="input"
+                    name="input"
+                    type="text"
+                    placeholder='Type space characters'
+                    // onKeyDown={(event) => event.stopPropagation()}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              </Dialog.Panel>
+            </Dialog>
+          </Menu.Item>
+        </Menu.Items>
+      </Menu>
     </div>
   );
 }
